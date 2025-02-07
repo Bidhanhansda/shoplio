@@ -1,11 +1,53 @@
 import { router, Stack } from "expo-router";
 import { useFonts } from "expo-font";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import * as SplashScreen from "expo-splash-screen";
+import { Provider, useSelector } from "react-redux";
+import store from "./(redux)/store";
+import { loadUserFromStorage } from "@/utils/userAsyncStorage";
+import { RootState } from "./(redux)/store";
+import { checkStoredUser } from "./(redux)/authSlice";
+import { useAppDispatch } from "@/hooks/hooks";
+
 import "./globals.css";
 
-export default function RootLayout() {
+SplashScreen.preventAutoHideAsync();
 
+function AuthLoader() {
+  const dispatch = useAppDispatch();
+  const user = useSelector((state: RootState) => state.auth.user);
+  const [appReady, setAppReady] = useState(false);
+
+  useEffect(() => {
+    const loadApp = async () => {
+      const storedUser = await loadUserFromStorage();
+      if (storedUser) {
+        dispatch(checkStoredUser());
+      }
+      setAppReady(true);
+    };
+
+    loadApp();
+  }, []);
+
+  useEffect(() => {
+    if (appReady) {
+      SplashScreen.hideAsync();
+    }
+  }, [appReady]);
+
+  useEffect(() => {
+    if (appReady && !user) {
+      router.replace("/auth/login");
+    }
+  }, [appReady, user]);
+
+  if (!appReady) return null;
+
+  return <Stack />;
+}
+
+export default function RootLayout() {
   const [fontsLoaded] = useFonts({
     "Rubik-Bold": require("../assets/fonts/Rubik-Bold.ttf"),
     "Rubik-ExtraBold": require("../assets/fonts/Rubik-ExtraBold.ttf"),
@@ -21,9 +63,11 @@ export default function RootLayout() {
     }
   }, [fontsLoaded]);
 
-  if(!fontsLoaded) {
-    return null;
-  }
+  if (!fontsLoaded) return null;
 
-  return <Stack />;
+  return (
+    <Provider store={store}>
+      <AuthLoader />
+    </Provider>
+  );
 }
