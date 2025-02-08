@@ -17,7 +17,7 @@ const ProfileScreen = () => {
           source={{ uri: user.image }}
           className="w-24 h-24 rounded-full border-2 border-primary-300"
         />
-        <Text className="text-xl font-semibold mt-3">{user.firstName}{user.lastName}</Text>
+        <Text className="text-xl font-rubik-semibold mt-3">{user.firstName}{user.lastName}</Text>
         <Text className="text-gray-500">{user.email}</Text>
       </View>
 
@@ -26,7 +26,7 @@ const ProfileScreen = () => {
         className="bg-primary-300 flex-row items-center justify-center py-3 rounded-xl shadow-md"
       >
         <Ionicons name="list-outline" size={22} color="white" />
-        <Text className="text-white font-semibold text-lg ml-2">My Orders</Text>
+        <Text className="text-white font-rubik-semibold text-lg ml-2">My Orders</Text>
       </TouchableOpacity>
 
       <TouchableOpacity
@@ -34,7 +34,7 @@ const ProfileScreen = () => {
         className="mt-6 bg-red-500 flex-row items-center justify-center py-3 rounded-xl shadow-md"
       >
         <Ionicons name="log-out-outline" size={22} color="white" />
-        <Text className="text-white font-semibold text-lg ml-2">Logout</Text>
+        <Text className="text-white font-rubik-semibold text-lg ml-2">Logout</Text>
       </TouchableOpacity>
     </View>
     :null

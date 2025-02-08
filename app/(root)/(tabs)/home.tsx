@@ -12,7 +12,6 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { useAppDispatch, useAppSelector } from "@/hooks/hooks";
 import { fetchProducts } from "@/app/(redux)/productSlice";
 import { ActivityIndicator } from "react-native";
-import icons from "@/constants/icons";
 import { useRouter } from "expo-router";
 
 const Home = () => {
@@ -73,13 +72,6 @@ const Home = () => {
               ))}
             </ScrollView>
 
-            <TouchableOpacity className="bg-primary-500 px-4 py-2 rounded-lg bg-slate-100">
-              <Image
-                source={icons.filter}
-                className="size-6"
-                resizeMode="contain"
-              />
-            </TouchableOpacity>
           </View>
 
           {loading ? (
@@ -101,7 +93,7 @@ const Home = () => {
                     source={{ uri: item.thumbnail }}
                     className="w-full h-24 rounded-lg"
                   />
-                  <Text className="text-lg font-semibold mt-2">
+                  <Text className="text-lg font-rubik-semibold mt-2">
                     {item.title}
                   </Text>
                   <Text className="text-gray-500">${item.price}</Text>

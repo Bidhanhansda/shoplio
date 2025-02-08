@@ -21,7 +21,7 @@ const OrderListScreen = () => {
       >
         <Image source={icons.backArrow} />
       </TouchableOpacity>
-      <Text className="text-2xl font-bold text-center mb-4">MY ORDERS</Text>
+      <Text className="text-2xl font-rubik-bold text-center mb-4">MY ORDERS</Text>
 
       {orders.length === 0 ? (
         <Text className="text-lg text-center text-gray-500">
@@ -33,16 +33,16 @@ const OrderListScreen = () => {
           keyExtractor={(order) => order.id}
           renderItem={({ item: order }) => (
             <View className="bg-white p-4 rounded-2xl shadow-md mb-4">
-              <Text className="text-lg font-semibold">
+              <Text className="text-lg font-rubik-semibold">
                 Order ID: {order.id}
               </Text>
               <Text className="text-gray-500">
                 📅 {new Date(order.orderDate).toLocaleDateString()}
               </Text>
-              <Text className="text-gray-700 font-medium">
+              <Text className="text-gray-700 font-rubik-medium">
                 Status: {order.status}
               </Text>
-              <Text className="text-gray-900 font-bold">
+              <Text className="text-gray-900 font-rubik-bold">
                 Total: ${order.totalAmount.toFixed(2)}
               </Text>
 
@@ -61,7 +61,7 @@ const OrderListScreen = () => {
                       className="w-16 h-16 rounded-lg mr-3"
                     />
                     <View>
-                      <Text className="font-semibold">{item.title}</Text>
+                      <Text className="font-rubik-semibold">{item.title}</Text>
                       <Text className="text-gray-600">
                         ${item.price} x {item.quantity}
                       </Text>
@@ -79,7 +79,7 @@ const OrderListScreen = () => {
                   setShowCancelAlert(true);
                 }}
               >
-                <Text className="text-white text-center font-bold">
+                <Text className="text-white text-center font-rubik-bold">
                   {order.status === "cancelled"
                     ? "Order Cancelled"
                     : "Cancel Order"}

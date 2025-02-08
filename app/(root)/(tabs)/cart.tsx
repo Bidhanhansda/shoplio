@@ -49,11 +49,11 @@ const CartScreen = () => {
             >
               <Image source={{ uri: item.thumbnail }} className="w-16 h-16 rounded-lg mr-3" />
               <View className="flex-1">
-                <Text className="text-lg font-semibold">{item.title}</Text>
+                <Text className="text-lg font-rubik-semibold">{item.title}</Text>
                 <Text className="text-gray-500">${item.price.toFixed(2)} x {item.quantity}</Text>
               </View>
               <TouchableOpacity onPress={() => handleRemoveItem(item.id)} className="bg-red-500 px-3 py-2 rounded-2xl">
-                <Text className="text-white font-semibold">Remove</Text>
+                <Text className="text-white font-rubik-semibold">Remove</Text>
               </TouchableOpacity>
             </TouchableOpacity>
           )}
@@ -63,15 +63,15 @@ const CartScreen = () => {
       {items.length > 0 && (
         <View className="mt-4 p-4 bg-white rounded-xl shadow-lg elevation-sm">
           <View className="flex-row mt-4 justify-between">
-          <Text className="text-lg font-semibold">Total Items: {totalQuantity}</Text>
-          <Text className="text-xl font-bold">Total: ${totalPrice.toFixed(2)}</Text>
+          <Text className="text-lg font-rubik-semibold">Total Items: {totalQuantity}</Text>
+          <Text className="text-xl font-rubik-bold">Total: ${totalPrice.toFixed(2)}</Text>
         </View>
           <View className="flex-row mt-4 justify-between">
             <TouchableOpacity onPress={()=>setClearCartAlert(true)} className="bg-red-500 rounded-full flex flex-row items-center justify-center shadow-md shadow-zinc-300 px-5 py-4">
-              <Text className="text-white font-semibold">CLEAR CART</Text>
+              <Text className="text-white font-rubik-semibold">CLEAR CART</Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={handlePlaceOrder} className="bg-primary-300 rounded-full flex flex-row items-center justify-center shadow-md shadow-zinc-300 px-5 py-4">
-              <Text className="text-white font-semibold">{"CHECK OUT >>>"}</Text>
+              <Text className="text-white font-rubik-semibold">{"CHECK OUT >>>"}</Text>
             </TouchableOpacity>
           </View>
         </View>

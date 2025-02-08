@@ -145,7 +145,7 @@ const ProductDetails = () => {
             />
 
             <View className="p-4">
-              <Text className="text-2xl font-bold">
+              <Text className="text-2xl font-rubik-bold">
                 {selectedProduct.title}
               </Text>
               <View className="flex-row items-center mt-2">
@@ -164,7 +164,7 @@ const ProductDetails = () => {
               {selectedProduct.description}
             </Text>
 
-            <Text className="text-xl font-semibold px-4 mt-6">
+            <Text className="text-xl font-rubik-semibold px-4 mt-6">
               Similar Products
             </Text>
 
@@ -192,7 +192,7 @@ const ProductDetails = () => {
               />
             </View>
 
-            <Text className="text-xl font-semibold px-4 mt-6">
+            <Text className="text-xl font-rubik-semibold px-4 mt-6">
               Customer Reviews
             </Text>
           </>
@@ -201,7 +201,7 @@ const ProductDetails = () => {
           <View className="bg-gray-100 p-4 mb-3 rounded-lg shadow-sm gap-3">
             <View className="flex-row justify-between">
               <View className="">
-                <Text className="font-semibold">{item.reviewerName}</Text>
+                <Text className="font-rubik-semibold">{item.reviewerName}</Text>
                 <Rating
                   imageSize={16}
                   readonly
@@ -226,7 +226,7 @@ const ProductDetails = () => {
           >
             <Text>-</Text>
           </TouchableOpacity>
-          <Text className="mx-4 text-lg font-semibold">{quantity}</Text>
+          <Text className="mx-4 text-base font-rubik-semibold">{quantity}</Text>
           <TouchableOpacity
             onPress={increaseQuantity}
             className="p-2 bg-gray-200 rounded-lg"
@@ -241,14 +241,14 @@ const ProductDetails = () => {
             onPress={handleAddToCart}
             disabled={itemInCart}
           >
-            <Text className="text-black text-lg font-semibold">
+            <Text className="text-black text-base font-rubik-semibold">
               Add to Cart
             </Text>
           </TouchableOpacity>
           <TouchableOpacity className="bg-primary-300 rounded-full flex flex-row items-center justify-center shadow-md shadow-zinc-300 px-5 py-2"
           onPress={()=>setOrderPlaced(true)}
           >
-            <Text className="text-white text-lg font-semibold">Buy Now</Text>
+            <Text className="text-white text-base font-rubik-semibold">Buy Now</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -273,11 +273,11 @@ const ProductDetails = () => {
         visible={orderPlacedAlert}
         title="Order Placed !"
         message={`Your order has been placed successfully !! 🎉`}
-        onClose={() => setOrderPlacedAlert(false)}
-        onConfirm={() => {
+        onClose={() => {
           setOrderPlacedAlert(false)
           router.push("/orders/orderlist");
         }}
+        buttonType="Close"
       />
       </View>
     </View>
