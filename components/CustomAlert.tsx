@@ -6,6 +6,7 @@ interface AlertProps {
   visible: boolean;
   title: string;
   message: string;
+  buttonType?: string;
   onClose: () => void;
   onConfirm?: () => void;
 }
@@ -16,6 +17,7 @@ const CustomAlertBox: React.FC<AlertProps> = ({
   message,
   onClose,
   onConfirm,
+  buttonType
 }) => {
   const scaleValue = new Animated.Value(0);
 
@@ -47,7 +49,7 @@ const CustomAlertBox: React.FC<AlertProps> = ({
               onPress={onClose}
             >
               <Text className="text-center font-rubik-semibold text-gray-700">
-                Cancel
+                {buttonType ? buttonType : "Cancel"}
               </Text>
             </TouchableOpacity>
 

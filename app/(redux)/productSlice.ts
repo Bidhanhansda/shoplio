@@ -2,13 +2,15 @@ import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import { Product, ProductResponse } from "@/utils/types/productTypes";
 
 interface ProductState {
-  products: Product[];
+  products: Product[] | null;
+  selectedProduct: Product | null;
   loading: boolean;
   error: string | null;
 }
 
 const initialState: ProductState = {
   products: [],
+  selectedProduct: null,
   loading: false,
   error: null,
 };
@@ -25,9 +27,12 @@ export const fetchProducts = createAsyncThunk(
       }
 
       const data: ProductResponse = await response.json();
-      return data.products;
+      if(data){
+        return data.products;
+      }
+      return null;
     } catch (error: any) {
-      return rejectWithValue(error.message);
+      return null;
     }
   }
 );
@@ -35,14 +40,20 @@ export const fetchProducts = createAsyncThunk(
 const productSlice = createSlice({
   name: "products",
   initialState,
-  reducers: {},
+  reducers: {
+    setSelectedProduct: (state, action: PayloadAction<string>) => {
+      state.selectedProduct = state.products?.find(
+        (product) => product.id.toString() === action.payload
+      ) || null;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchProducts.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
-      .addCase(fetchProducts.fulfilled, (state, action: PayloadAction<Product[]>) => {
+      .addCase(fetchProducts.fulfilled, (state, action: PayloadAction<Product[] | null>) => {
         state.loading = false;
         state.products = action.payload;
       })
@@ -52,5 +63,7 @@ const productSlice = createSlice({
       });
   },
 });
+
+export const { setSelectedProduct } = productSlice.actions;
 
 export default productSlice.reducer;

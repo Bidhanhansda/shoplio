@@ -39,6 +39,7 @@ const TabsLayout = () => {
         options={{
           title: "Cart",
           headerShown: false,
+          tabBarStyle: { display: "none" },
           tabBarIcon: ({ focused }) => (
             <CustomTabIcon focused={focused} icon={icons.cart} title="Cart" />
           ),
