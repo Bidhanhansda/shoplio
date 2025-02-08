@@ -30,6 +30,7 @@ const Auth = () => {
   const [isUsernameFocused, setIsUsernameFocused] = useState(false);
   const [isPasswordFocused, setIsPasswordFocused] = useState(false);
   const [isAlertVisible, setAlertVisible] = useState(false);
+  const [validationAlert, setValidationAlert] = useState(false);
 
   useEffect(() => {
     dispatch(checkStoredUser());
@@ -37,20 +38,40 @@ const Auth = () => {
 
   if (!loading && user) return <Redirect href="/home" />;
 
+  const isStrongPassword = (password: string): boolean => {
+    const minLength = /^.{8,}$/;
+    const upperCase = /[A-Z]/;
+    const lowerCase = /[a-z]/;
+    const number = /[0-9]/;
+    const specialChar = /[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]/;
+
+    return (
+      minLength.test(password) &&
+      upperCase.test(password) &&
+      lowerCase.test(password) &&
+      number.test(password) &&
+      specialChar.test(password)
+    );
+  };
+
   const handleLogin = async () => {
     if (!username || !password) {
-      Alert.alert("Error", "Please enter username and password");
+      setValidationAlert(true);
       return;
     }
 
-    setLoggingIn(true);
-    try {
-      await dispatch(loginUser({ username, password })).unwrap();
-    } catch (err) {
-      // Alert.alert("Login Failed", err as string);
-      setAlertVisible(true);
-    } finally {
-      setLoggingIn(false);
+    const validatePassword = isStrongPassword(password);
+    if (validatePassword || password === "emilyspass") {
+      setLoggingIn(true);
+      try {
+        await dispatch(loginUser({ username, password })).unwrap();
+      } catch (err) {
+        setAlertVisible(true);
+      } finally {
+        setLoggingIn(false);
+      }
+    }else{
+      setValidationAlert(true);
     }
   };
 
@@ -75,11 +96,11 @@ const Auth = () => {
               <View className="px-10">
                 <Text className="text-base text-center uppercase font-rubik text-black-200">
                   Welcome To {"\t"}
-                  <Text className="text-primary-300">ShopLio</Text> 
+                  <Text className="text-primary-300">ShopLio</Text>
                 </Text>
 
                 <Text className="text-3xl font-rubik-bold text-black-300 text-center mt-2">
-                Shopping Has {"\n"}
+                  Shopping Has {"\n"}
                   <Text className="text-primary-300">Never Been Easier</Text>
                 </Text>
 
@@ -115,7 +136,7 @@ const Auth = () => {
                     value={password}
                     onChangeText={setPassword}
                     onFocus={() => setIsPasswordFocused(true)}
-                    onBlur={() => setIsPasswordFocused(false)} 
+                    onBlur={() => setIsPasswordFocused(false)}
                     secureTextEntry
                     className="bg-gray-100 border border-gray-300 rounded-xl px-4 py-3 text-black-300"
                     placeholderTextColor="#9CA3AF"
@@ -149,9 +170,16 @@ const Auth = () => {
         title="Error While Logging"
         message={`${error} ${"\n"} Try Username: emilys , Password: emilyspass`}
         onClose={() => setAlertVisible(false)}
-        onConfirm={() => {
-          setAlertVisible(false);
-        }}
+        buttonType="Close"
+      />
+      <CustomAlertBox
+        visible={validationAlert}
+        title={!username || !password ? "Invalid Credential" : "Password Error"}
+        message={
+          !username || !password ? "Please enter username and password" : "Password must contain at least 8 characters, including uppercase, lowercase, number, and special character"
+        }
+        onClose={() => setValidationAlert(false)}
+        buttonType="Close"
       />
     </SafeAreaView>
   );
