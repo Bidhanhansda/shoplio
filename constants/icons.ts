@@ -15,6 +15,7 @@ import wallet from "@/assets/icons/wallet.png";
 import rightArrow from "@/assets/icons/right-arrow.png";
 import area from "@/assets/icons/area.png";
 import edit from "@/assets/icons/edit.png";
+import cart from "@/assets/icons/cart.png"
 
 export default {
   home,
@@ -33,6 +34,6 @@ export default {
   wallet,
   rightArrow,
   area,
-  location,
   edit,
+  cart
 };

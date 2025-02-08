@@ -20,6 +20,9 @@ module.exports = {
           300: "#191D31",
         },
         danger: "#F75555",
+        secondary: {
+          DEFAULT: "#bed2f3"
+        }
       },
       fontFamily: {
         "rubik": ["Rubik-Regular", "sans-serif"],
