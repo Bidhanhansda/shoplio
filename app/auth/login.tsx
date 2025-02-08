@@ -35,7 +35,7 @@ const Auth = () => {
     dispatch(checkStoredUser());
   }, [dispatch]);
 
-  if (!loading && user) return <Redirect href="/" />;
+  if (!loading && user) return <Redirect href="/home" />;
 
   const handleLogin = async () => {
     if (!username || !password) {

@@ -1,10 +1,11 @@
 import { useAppSelector } from "@/hooks/hooks";
-import { Redirect } from "expo-router";
+import { Redirect, Slot } from "expo-router";
 import { ActivityIndicator } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-export default function Index() {
-  const { user, loading, error } = useAppSelector((state) => state.auth);
+export default function AppLayout() {
+    const { user, loading, error } = useAppSelector((state) => state.auth);
+
   if (loading) {
     return (
       <SafeAreaView className="bg-white h-full flex justify-center items-center">
@@ -13,10 +14,9 @@ export default function Index() {
     );
   }
 
-  if (!user && !loading) {
+  if (!user) {
     return <Redirect href="/auth/login" />;
   }
 
-  return <Redirect href="/home" />;
-  ;
+  return <Slot />;
 }

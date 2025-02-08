@@ -40,9 +40,6 @@ function AuthLoader() {
     if (appReady && !user) {
       router.replace("/auth/login");
     }
-    if(user){
-      router.replace("/");
-    }
   }, [appReady, user]);
 
   if (!appReady) return null;
